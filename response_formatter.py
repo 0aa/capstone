@@ -1,4 +1,4 @@
+import re
 
-
-def clean_response(raw):
-    return raw.replace("##", "").strip()
+def clean_response(text):
+    return re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL).strip()

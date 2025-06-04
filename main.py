@@ -7,7 +7,7 @@ from ollama_interface import query_model
 def main():
     config = load_config()
 
-    knowledge = read_knowledge_file(config["knowledge_base_path"])
+    knowledge = read_knowledge_file(config["knowledge_file"])
     print("Loaded knowledge base.")
 
     while True:
