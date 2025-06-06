@@ -1,13 +1,13 @@
 from config import load_config
-from notion_reader import read_knowledge_file
+from notion_reader import fetch_notion_knowledge
 from prompt_builder import build_prompt
-from ollama_interface import query_model
+from ollama_interface import query_ollama
 
 
 def main():
     config = load_config()
 
-    knowledge = read_knowledge_file(config["knowledge_file"])
+    knowledge = fetch_notion_knowledge()
     print("Loaded knowledge base.")
 
     while True:
@@ -15,7 +15,7 @@ def main():
         if query.strip().lower() == "exit":
             break
         prompt = build_prompt(knowledge, query, config["max_tokens"])
-        response = query_model(prompt, config["model"])
+        response = query_ollama(prompt, config["model"])
         print("\n[AI Assistant]:\n", response)
 
 

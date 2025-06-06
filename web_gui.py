@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, session
 import os
 import re
 from config import load_config
-from notion_reader import read_knowledge_file
+from notion_reader import fetch_notion_knowledge
 from prompt_builder import build_prompt
 from ollama_interface import query_ollama
 
@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
 config = load_config()
-knowledge = read_knowledge_file(config["knowledge_file"])
+knowledge = fetch_notion_knowledge()
 
 def clean_response(text):
     return re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL).strip()
